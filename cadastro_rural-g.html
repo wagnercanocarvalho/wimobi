@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Cadastro Imóvel Rural PWA</title>
+    <style>
+        /* Estilos CSS (MANTENHA O CSS ANTERIOR INTACTO - RESPONSIVIDADE E TEMAS) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: var(--body-bg-color);
+            color: var(--text-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--heading-color);
+        }
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: var(--form-bg-color);
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        legend {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: var(--legend-bg-color);
+            color: var(--legend-text-color);
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            color: var(--label-color);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--input-bg-color);
+            color: var(--input-text-color);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .select-container {
+            margin-bottom: 15px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--input-bg-color);
+            color: var(--input-text-color);
+            height: 120px;
+        }
+
+        .add-item {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .new-item-input {
+            flex: 1;
+            padding: 6px;
+            margin: 0;
+        }
+
+        .add-item-button {
+            padding: 6px 12px;
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-item-button:hover {
+            background-color: var(--button-hover-bg-color);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: var(--body-bg-color);
+            color: var(--text-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--heading-color);
+        }
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: var(--form-bg-color);
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        legend {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: var(--legend-bg-color);
+            color: var(--legend-text-color);
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            color: var(--label-color);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        textarea {
+            width: calc(100% - 22px); /* Ajuste para padding e borda */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--input-bg-color);
+            color: var(--input-text-color);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        button[type="submit"],
+        .media-button,
+        .coordinate-button,
+        .google-earth-link {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-block; /* Para alinhar os botões de mídia */
+            margin-right: 5px; /* Espaçamento entre botões de mídia */
+        }
+
+        button[type="submit"]:hover,
+        .media-button:hover,
+        .coordinate-button:hover,
+        .google-earth-link:hover {
+            background-color: var(--button-hover-bg-color);
+        }
+
+
+        /* Estilos para responsividade */
+        @media screen and (max-width: 600px) {
+            form {
+                padding: 15px;
+            }
+            input[type="text"],
+            input[type="number"],
+            input[type="url"],
+            textarea {
+                width: calc(100% - 16px); /* Ajuste menor para telas menores */
+                padding: 6px;
+                font-size: 0.9rem;
+            }
+            button[type="submit"],
+            .media-button,
+            .coordinate-button,
+            .google-earth-link {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+
+        /* Temas de Cores (CSS Variables) - MANTENHA INTACTO */
+        :root {
+            --body-bg-color: #f4f4f4;
+            --text-color: #333;
+            --heading-color: #0056b3;
+            --form-bg-color: #fff;
+            --legend-bg-color: #eee;
+            --legend-text-color: #333;
+            --label-color: #555;
+            --input-bg-color: #fff;
+            --input-text-color: #333;
+            --button-bg-color: #007bff;
+            --button-text-color: #fff;
+            --button-hover-bg-color: #0056b3;
+        }
+
+        /* Tema Dark - MANTENHA INTACTO */
+        .dark-theme {
+            --body-bg-color: #333;
+            --text-color: #eee;
+            --heading-color: #90caf9;
+            --form-bg-color: #444;
+            --legend-bg-color: #555;
+            --legend-text-color: #eee;
+            --label-color: #ccc;
+            --input-bg-color: #555;
+            --input-text-color: #eee;
+            --button-bg-color: #03a9f4;
+            --button-text-color: #333;
+            --button-hover-bg-color: #0277bd;
+        }
+
+        /* Tema Noturno (Mais escuro que o Dark) - MANTENHA INTACTO */
+        .night-theme {
+            --body-bg-color: #121212;
+            --text-color: #ddd;
+            --heading-color: #80d8ff;
+            --form-bg-color: #212121;
+            --legend-bg-color: #333;
+            --legend-text-color: #ddd;
+            --label-color: #bbb;
+            --input-bg-color: #333;
+            --input-text-color: #ddd;
+            --button-bg-color: #00bcd4;
+            --button-text-color: #212121;
+            --button-hover-bg-color: #00838f;
+        }
+
+        /* Estilo para o botão de captura de coordenadas - MANTENHA INTACTO */
+        .coordinate-button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--button-bg-color); /* Usando a cor do botão primário para consistência */
+            color: var(--button-text-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            vertical-align: top; /* Alinha verticalmente com o campo de texto */
+            margin-left: 5px;
+        }
+
+        .coordinate-button:hover {
+            background-color: var(--button-hover-bg-color);
+        }
+
+        /* Estilo para o link do Google Earth - MANTENHA INTACTO */
+        .google-earth-link {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid var(--button-bg-color); /* Cor da borda igual à do botão */
+            border-radius: 4px;
+            background-color: transparent; /* Fundo transparente */
+            color: var(--button-bg-color); /* Cor do texto igual à do botão */
+            text-decoration: none;
+            font-size: 0.9rem;
+            vertical-align: top;
+            margin-left: 5px;
+            transition: background-color 0.3s, color 0.3s; /* Transição suave */
+        }
+
+        .google-earth-link:hover {
+            background-color: var(--button-bg-color); /* Inverte cores no hover */
+            color: var(--button-text-color);
+        }
+
+        /* Estilos para o seletor de tema - MANTENHA INTACTO */
+        .theme-selector {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .theme-selector label {
+            margin: 0 10px;
+        }
+
+        /* Estilos para a seção de mídia */
+        .media-section {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: var(--form-bg-color);
+        }
+
+        .media-section legend {
+            background-color: var(--legend-bg-color);
+            color: var(--legend-text-color);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .media-buttons {
+            margin-bottom: 10px;
+        }
+
+        #video-preview {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Garante que a margem automática funcione */
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9; /* Cor de fundo para vídeo */
+            max-height: 300px; /* Altura máxima para o vídeo */
+        }
+
+        #photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .photo-preview-container {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden; /* Garante que a imagem não vaze do container */
+            position: relative;
+        }
+
+        .photo-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Preenche o container mantendo a proporção */
+            display: block;
+        }
+
+        /* Add styles for delete photo button */
+        .btn-excluir {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Ficha de Cadastro Imóvel Rural PWA</h1>
+
+    <div class="theme-selector">
+        <label><input type="radio" name="theme" value="light" checked onclick="setTheme('light')"> Light</label>
+        <label><input type="radio" name="theme" value="dark" onclick="setTheme('dark')"> Dark</label>
+        <label><input type="radio" name="theme" value="night" onclick="setTheme('night')"> Noturno</label>
+    </div>
+
+    <form action="rurais.php" method="post" id="cadastroRuralForm">
+        <fieldset>
+            <legend>Dados Gerais</legend>
+
+            <p>
+                Tipo:
+                <input type="radio" id="fazenda" name="tipo" value="Fazenda"> <label for="fazenda">Fazenda</label>
+                <input type="radio" id="sitio" name="tipo" value="Sitio"> <label for="sitio">Sítio</label>
+                <input type="radio" id="chacara" name="tipo" value="Chácara"> <label for="chacara">Chácara</label>
+            </p>
+
+            <p>
+                <label for="nome_propriedade">Nome da Propriedade:</label>
+                <input type="text" id="nome_propriedade" name="nome_propriedade" required>
+            </p>
+
+            <p>
+                <label for="municipio">Município:</label>
+                <input type="text" id="municipio" name="municipio" required>
+            </p>
+
+            <!-- <p>
+                <label for="localizacao_imagem">Localização (Imagem Google Earth):</label>
+                <input type="url" id="localizacao_imagem" name="localizacao_imagem" placeholder="URL da imagem">
+                </p> -->
+
+            <!-- No campo de coordenadas, remover o link do Google Earth -->
+<p>
+    <label for="coordenadas_geograficas">Coordenadas Geográficas:</label>
+    <input type="text" id="coordenadas_geograficas" name="coordenadas_geograficas" placeholder="Latitude, Longitude">
+    <button type="button" class="coordinate-button" onclick="capturarLocalizacao()">Capturar Coordenadas</button>
+</p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Logística</legend>
+            <p>
+                <label for="logistica">Logística:</label>
+                <textarea id="logistica" name="logistica" rows="3" cols="50"></textarea>
+            </p>
+
+            <p>
+                <label for="km_estrada_pavimentada">KM até estrada pavimentada:</label>
+                <input type="number" id="km_estrada_pavimentada" name="km_estrada_pavimentada" min="0">
+            </p>
+
+            <p>
+                <label for="cidade_proxima">Cidade mais próxima:</label>
+                <input type="text" id="cidade_proxima" name="cidade_proxima">
+            </p>
+
+            <!-- Bloco Industriais ao Redor -->
+<fieldset>
+    <legend>Industriais ao Redor</legend>
+    <div class="select-container">
+        <select id="industriais_ao_redor" name="industriais_ao_redor[]" multiple>
+            <option value="Usina de Açúcar/Etanol">Usina de Açúcar/Etanol</option>
+            <option value="Frigorífico">Frigorífico</option>
+            <option value="Armazéns">Armazéns</option>
+            <option value="Armazenamentos">Armazenamentos</option>
+        </select>
+        <div class="add-item">
+            <input type="text" class="new-item-input" placeholder="Novo item">
+            <button type="button" class="add-item-button" onclick="addItem('industriais_ao_redor')">+</button>
+        </div>
+    </div>
+</fieldset>
+
+            <p>
+                <label for="altitude">Altitude:</label>
+                <input type="text" id="altitude" name="altitude">
+                </p>
+        </fieldset>
+
+<!-- Bloco Segmentação -->
+<fieldset>
+    <legend>Segmentação</legend>
+    <div class="select-container">
+        <select id="segmentacao" name="segmentacao[]" multiple>
+            <option value="Área Agricultável">Área Agricultável</option>
+            <option value="APP">APP</option>
+            <option value="Reserva Legal">Reserva Legal</option>
+        </select>
+        <div class="add-item">
+            <input type="text" class="new-item-input" placeholder="Novo item">
+            <button type="button" class="add-item-button" onclick="addItem('segmentacao')">+</button>
+        </div>
+    </div>
+</fieldset>
+
+         <!-- Hidrografia -->
+        <fieldset>
+            <legend>Hidrografia</legend>
+            <div class="select-container">
+                <select id="hidrografia" name="hidrografia[]" multiple>
+                    <option value="Nascentes">Nascentes</option>
+                    <option value="Córregos">Córregos</option>
+                    <option value="Rios">Rios</option>
+                    <option value="Represas">Represas</option>
+                    <option value="Poços">Poços</option>
+                    <option value="Cisternas">Cisternas</option>
+                    <option value="Artesianos">Artesianos</option>
+                    <option value="Semi-artesiano">Semi-artesiano</option>
+                    <option value="Outorga de Água">Outorga de Água</option>
+                </select>
+                <div class="add-item">
+                    <input type="text" class="new-item-input" placeholder="Novo item">
+                    <button type="button" class="add-item-button" onclick="addItem('hidrografia')">+</button>
+                </div>
+            </div>
+        </fieldset>
+
+         <!-- Topografia -->
+         <fieldset>
+            <legend>Topografia</legend>
+            <div class="select-container">
+                <select id="topografia" name="topografia[]" multiple>
+                    <option value="Plana">Plana</option>
+                    <option value="Semiplana">Semiplana</option>
+                    <option value="Ondulada">Ondulada</option>
+                    <option value="Semi-ondulada">Semi-ondulada</option>
+                    <option value="Acidentada">Acidentada</option>
+                    <option value="Semi-acidentada">Semi-acidentada</option>
+                </select>
+                <div class="add-item">
+                    <input type="text" class="new-item-input" placeholder="Novo item">
+                    <button type="button" class="add-item-button" onclick="addItem('topografia')">+</button>
+                </div>
+            </div>
+            <p>
+                <label for="topografia_graus">Em graus:</label>
+                <input type="text" id="topografia_graus" name="topografia_graus">
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Tipo de Solo</legend>
+            <p>
+                <label for="tipo_solo">Tipo de Solo:</label>
+                <textarea id="tipo_solo" name="tipo_solo" rows="3" cols="50"></textarea>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Acesso</legend>
+            <p>
+                <label for="como_chegar">Como Chegar (Roteiro de Acesso):</label>
+                <textarea id="como_chegar" name="como_chegar" rows="5" cols="50"></textarea>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Benfeitorias</legend>
+            <p>
+                Benfeitorias:
+                <input type="checkbox" id="casa_sede" name="benfeitorias[]" value="Casa Sede"> <label for="casa_sede">Casa Sede</label>
+                <input type="checkbox" id="casa_colaboradores" name="benfeitorias[]" value="Casa Colaboradores"> <label for="casa_colaboradores">Casa Colaboradores</label>
+                <input type="checkbox" id="silos" name="benfeitorias[]" value="Silos"> <label for="silos">Silos</label>
+                <input type="checkbox" id="currais" name="benfeitorias[]" value="Currais"> <label for="currais">Currais</label>
+                <input type="checkbox" id="cercas" name="benfeitorias[]" value="Cercas"> <label for="cercas">Cercas</label>
+                <input type="checkbox" id="balancas" name="benfeitorias[]" value="Balanças"> <label for="balancas">Balanças</label>
+                <input type="checkbox" id="galpoes" name="benfeitorias[]" value="Galpões"> <label for="galpoes">Galpões</label>
+                <input type="checkbox" id="brete" name="benfeitorias[]" value="Brete"> <label for="brete">Brete</label>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Energia</legend>
+            <p>
+                Energia:
+                <input type="radio" id="publica" name="energia" value="Pública"> <label for="publica">Pública</label>
+                <input type="radio" id="monofasica" name="energia" value="Monofásica"> <label for="monofasica">Monofásica</label>
+                <input type="radio" id="trifasica" name="energia" value="Trifásica"> <label for="trifasica">Trifásica</label>
+            </p>
+        </fieldset>
+
+        <fieldset class="media-section">
+            <legend>Registros e Documentos</legend>
+             <p>
+                Registros fotográficos e vídeos:
+                <input type="radio" id="sim_registros" name="registros_fotograficos_videos" value="Sim"> <label for="sim_registros">Sim</label>
+                <input type="radio" id="nao_registros" name="registros_fotograficos_videos" value="Não"> <label for="nao_registros">Não</label>
+            </p>
+
+            <div class="media-buttons">
+                <button type="button" class="media-button" id="take-photo-button">Capturar Fotos (0/80)</button>
+                <button type="button" class="media-button" id="record-video-button">Gravar Vídeo (Max 90s)</button>
+            </div>
+
+            <div id="video-preview-container">
+                <video id="video-preview" style="display: none; width: 100%; max-width: 640px; height: auto;" autoplay></video>
+            </div>
+            
+            <div id="photo-gallery"></div>
+            
+
+            </fieldset>
+         <!-- Documentos -->
+         <fieldset>
+            <legend>Documentos</legend>
+            <div class="select-container">
+                <select id="documentos" name="documentos[]" multiple>
+                    <option value="Mapa Topográfico">Mapa Topográfico</option>
+                    <option value="Mapa Planialtimétrico">Mapa Planialtimétrico</option>
+                    <option value="Matrícula">Matrícula</option>
+                    <option value="Autorização de Venda">Autorização de Venda</option>
+                    <option value="Posse">Posse</option>
+                    <option value="Arrendamento">Arrendamento</option>
+                    <option value="CAR">CAR</option>
+                    <option value="ITR">ITR</option>
+                    <option value="CCIR">CCIR</option>
+                    <option value="GEO">GEO</option>
+                    <option value="SIGEF">SIGEF</option>
+                </select>
+                <div class="add-item">
+                    <input type="text" class="new-item-input" placeholder="Novo item">
+                    <button type="button" class="add-item-button" onclick="addItem('documentos')">+</button>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Financeiro</legend>
+            <p>
+                <label for="preco">Preço:</label>
+                <input type="number" id="preco" name="preco" step="0.01">
+            </p>
+
+            <p>
+                <label for="forma_pagamento">Forma de Pagamento:</label>
+                <textarea id="forma_pagamento" name="forma_pagamento" rows="3" cols="50"></textarea>
+            </p>
+        </fieldset>
+
+        <button type="submit">Cadastrar Imóvel Rural</button>
+    </form>
+
+    <script>
+          // Função para adicionar novos itens aos selects
+          function addItem(selectId) {
+            const select = document.getElementById(selectId);
+            const input = select.parentNode.querySelector('.new-item-input');
+            const newValue = input.value.trim();
+
+            if (newValue) {
+                const exists = Array.from(select.options).some(option => option.value === newValue);
+                
+                if (!exists) {
+                    const option = new Option(newValue, newValue);
+                    select.add(option);
+                }
+                
+                input.value = '';
+            }
+        }
+        // Temas e captura de localização (MANTENHA O JAVASCRIPT ANTERIOR INTACTO)
+        function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.documentElement.className = themeName + '-theme';
+        }
+
+        function applyTheme() {
+            const themeName = localStorage.getItem('theme') || 'light';
+            setTheme(themeName);
+            document.querySelector(`input[name="theme"][value="${themeName}"]`).checked = true;
+        }
+
+        applyTheme();
+
+        function capturarLocalizacao() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    document.getElementById('coordenadas_geograficas').value = latitude + ', ' + longitude;
+
+                    // Criar e exibir o link do Google Earth
+                    // var googleEarthLink = document.getElementById('google_earth_link');
+                    // googleEarthLink.href = 'https://earth.google.com/web/search/' + latitude + ',' + longitude;
+                    //googleEarthLink.style.display = 'inline-block'; // Exibe o link
+                }, function() {
+                    alert('Não foi possível obter a localização.');
+                });
+            } else {
+                alert('Geolocalização não suportada pelo navegador.');
+            }
+        }
+
+
+        // ... (Temas e captura de localização - mantenha este código intacto)
+
+// **NOVAS FUNÇÕES JAVASCRIPT PARA CAPTURA DE MÍDIA E OFFLINE**
+
+const form = document.getElementById('cadastroRuralForm');
+const takePhotoButton = document.getElementById('take-photo-button');
+const recordVideoButton = document.getElementById('record-video-button');
+const photoGallery = document.getElementById('photo-gallery');
+const videoPreview = document.getElementById('video-preview');
+
+let mediaStream = null; // Para armazenar o stream da câmera
+let mediaRecorder = null; // Para gravar vídeo
+let recordedVideoChunks = []; // Para armazenar os chunks do vídeo gravado
+let photosArray = []; // Array para armazenar dados das fotos capturadas (Data URLs)
+const MAX_PHOTOS = 80;
+const MAX_VIDEO_DURATION_SECONDS = 90;
+let photoCount = 0;
+let videoRecordingStartTime;
+
+// Função para parar a câmera
+async function stopCamera() {
+    if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        videoPreview.pause();
+        videoPreview.srcObject = null;
+        videoPreview.style.display = 'none'; // Ocultar o elemento de vídeo
+        mediaStream = null;
+    }
+}
+
+// Função para capturar foto
+async function capturePhoto() {
+    if (photoCount >= MAX_PHOTOS) {
+        alert("Limite máximo de 80 fotos atingido.");
+        return;
+    }
+
+    if (!mediaStream) {
+        await startCamera(); // Iniciar a câmera se não estiver ativa
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = videoPreview.videoWidth;
+    canvas.height = videoPreview.videoHeight;
+    const context = canvas.getContext('2d');
+    context.drawImage(videoPreview, 0, 0, canvas.width, canvas.height);
+    const photoDataUrl = canvas.toDataURL('image/jpeg'); // Obter a foto como Data URL
+
+    photosArray.push(photoDataUrl); // Adicionar Data URL ao array de fotos
+    photoCount++;
+    updatePhotoButtonText(); // Atualizar texto do botão de fotos
+
+    // Criar elemento de imagem para pré-visualização na galeria com botão de exclusão
+    const photoContainer = document.createElement('div');
+    photoContainer.className = 'photo-preview-container';
+    photoContainer.innerHTML = `
+        <img src="${photoDataUrl}" class="photo-preview">
+        <span class="btn-excluir" onclick="excluirFoto('${photoDataUrl}')">&times;</span>
+    `;
+    photoGallery.appendChild(photoContainer);
+}
+
+// Função para excluir foto
+function excluirFoto(dataURL) {
+    const photoContainer = photoGallery.querySelector(`.photo-preview-container img[src="${dataURL}"]`).parentNode;
+    photoGallery.removeChild(photoContainer);
+    photosArray = photosArray.filter(url => url !== dataURL);
+    photoCount--;
+    updatePhotoButtonText();
+}
+
+// Função para atualizar texto do botão de fotos
+function updatePhotoButtonText() {
+    takePhotoButton.textContent = `Capturar Fotos (${photoCount}/${MAX_PHOTOS})`;
+}
+
+// Função para iniciar/parar gravação de vídeo
+async function recordVideo() {
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+        stopVideoRecording(); // Se estiver gravando, parar
+    } else {
+        startVideoRecording(); // Se não, iniciar
+    }
+}
+
+// Função para iniciar gravação de vídeo
+async function startVideoRecording() {
+    recordedVideoChunks = []; // Limpar chunks anteriores
+    if (!mediaStream) {
+        await startCamera(); // Iniciar a câmera se não estiver ativa
+    }
+
+    mediaRecorder = new MediaRecorder(mediaStream);
+    mediaRecorder.ondataavailable = handleVideoDataAvailable;
+    mediaRecorder.onstop = handleStopRecording;
+    mediaRecorder.start();
+    recordVideoButton.textContent = "Parar Gravação";
+    videoRecordingStartTime = Date.now(); // Registrar o tempo de início
+
+    // Desabilitar botão de foto durante a gravação
+    takePhotoButton.disabled = true;
+
+    // Iniciar temporizador para parar a gravação após 90 segundos
+    setTimeout(stopVideoRecording, MAX_VIDEO_DURATION_SECONDS * 1000);
+}
+
+// Função para lidar com dados de vídeo disponíveis
+function handleVideoDataAvailable(event) {
+    if (event.data && event.data.size > 0) {
+        recordedVideoChunks.push(event.data);
+    }
+}
+
+// Função para parar gravação de vídeo
+async function stopVideoRecording() {
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        recordVideoButton.textContent = "Gravar Vídeo (Max 90s)";
+        takePhotoButton.disabled = false; // Reabilitar botão de foto
+    }
+}
+
+// Função para lidar com o fim da gravação
+function handleStopRecording() {
+    const videoBlob = new Blob(recordedVideoChunks, { type: 'video/webm' });
+    const videoUrl = URL.createObjectURL(videoBlob);
+    videoPreview.src = videoUrl; // Define a URL do vídeo para o elemento de vídeo para reprodução
+    videoPreview.controls = true; // Mostrar controles de vídeo
+    videoPreview.style.display = 'block'; // Exibir o vídeo gravado
+
+    // Aqui você pode processar o videoBlob para upload ou armazenamento local
+    console.log('Vídeo gravado como Blob:', videoBlob);
+}
+
+// Add the missing startCamera function
+async function startCamera() {
+    try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ 
+            video: true, 
+            audio: true 
+        });
+        videoPreview.srcObject = mediaStream;
+        videoPreview.style.display = 'block';
+    } catch (error) {
+        console.error('Erro ao acessar câmera:', error);
+        alert('Não foi possível acessar a câmera. Verifique as permissões.');
+    }
+}
+
+// Add event listeners for media buttons
+document.addEventListener('DOMContentLoaded', function() {
+    takePhotoButton.addEventListener('click', capturePhoto);
+    recordVideoButton.addEventListener('click', recordVideo);
+});
+
+// Modify the camera initialization
+// Remove the automatic startCamera() call and only start when needed
+window.onload = function() {
+    if (navigator.onLine) {
+        sincronizarDadosOffline();
+    }
+    updatePhotoButtonText();
+};
+
+        // **FUNÇÕES PARA FUNCIONAMENTO OFFLINE E SINCRONIZAÇÃO**
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar o envio padrão do formulário
+            salvarCadastro();
+        });
+
+
+        async function salvarCadastro() {
+            const formData = obterDadosDoFormulario(); // Função para coletar dados do formulário
+            formData.photos = photosArray; // Adicionar fotos ao objeto de dados
+            formData.video = recordedVideoChunks.length > 0 ? URL.createObjectURL(new Blob(recordedVideoChunks, { type: 'video/webm' })) : null; // Adicionar vídeo (se gravado)
+
+            if (!navigator.onLine) {
+                // Salvar no LocalStorage se offline
+                salvarOffline(formData);
+                alert("Cadastro salvo localmente (offline). Será sincronizado quando a conexão retornar.");
+            } else {
+                // Enviar para o servidor se online
+                enviarParaServidor(formData);
+            }
+        }
+
+        function obterDadosDoFormulario() {
+            const data = {};
+            const formElements = form.elements;
+
+            // Processar campos normais
+            
+            for (let i = 0; i < formElements.length; i++) {
+                const element = formElements[i];
+                if (element.name) {
+                    if (element.type === 'radio' || element.type === 'checkbox') {
+                        if (element.checked) {
+                            data[element.name] = data[element.name] || [];
+                            data[element.name].push(element.value);
+                        }
+                    } else if (element.tagName !== 'SELECT') {
+                        data[element.name] = element.value;
+                    }
+                }
+            }
+
+            // Processar selects múltiplos
+            const selects = form.querySelectorAll('select[multiple]');
+            selects.forEach(select => {
+                data[select.name] = Array.from(select.selectedOptions).map(option => option.value);
+            });
+
+            return data;
+        }
+
+
+        function salvarOffline(formData) {
+            const timestamp = Date.now();
+            const offlineData = {
+                data: formData,
+                timestamp: timestamp,
+                status: 'pending' // Status para indicar que precisa ser sincronizado
+            };
+            localStorage.setItem('cadastroRuralOffline_' + timestamp, JSON.stringify(offlineData));
+            console.log('Dados salvos offline:', offlineData);
+            // Limpar o formulário após salvar offline (opcional)
+            // form.reset();
+            // photoGallery.innerHTML = ''; // Limpar galeria de fotos
+            // photosArray = []; // Limpar array de fotos
+            // photoCount = 0;
+            updatePhotoButtonText(); // Atualizar texto do botão de fotos
+            videoPreview.src = ''; // Limpar preview de vídeo
+            videoPreview.style.display = 'none';
+            recordedVideoChunks = []; // Limpar chunks de vídeo
+        }
+
+
+        async function enviarParaServidor(formData) {
+            try {
+                const formDataToSend = new FormData();
+        
+        // Mapeie todos os campos do formulário
+        for (const [key, value] of Object.entries(formData)) {
+            if (Array.isArray(value)) {
+                // Para arrays (selects múltiplos)
+                value.forEach(item => formDataToSend.append(`${key}[]`, item));
+            } else {
+                formDataToSend.append(key, value);
+            }
+        }
+                // const response = await fetch('rurais.php', { // Ajuste o caminho se necessário
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json', // Enviar como JSON
+                //     },
+                //     body: JSON.stringify(formData), // Converter dados para JSON
+                    
+                // });
+                 // Adicione arquivos de mídia se existirem
+        if (photosArray.length > 0) {
+            photosArray.forEach((photo, index) => {
+                const blob = dataURLtoBlob(photo);
+                formDataToSend.append(`fotos[${index}]`, blob, `foto_${Date.now()}_${index}.jpg`);
+            });
+        }
+
+                if (response.ok) {
+                    const result = await response.text(); // Esperar a resposta como texto (ou .json() se rurais.php retornar JSON)
+                    alert(result); // Exibir mensagem de sucesso ou erro do PHP
+                    // Limpar o formulário e dados locais após o envio bem-sucedido
+                    form.reset();
+                    photoGallery.innerHTML = ''; // Limpar galeria de fotos
+                    photosArray = [];
+                    photoCount = 0;
+                    updatePhotoButtonText();
+                    videoPreview.src = '';
+                    videoPreview.style.display = 'none';
+                    recordedVideoChunks = [];
+                    // Remover dados offline sincronizados com sucesso (se houver lógica para isso)
+                    limparDadosOfflineSincronizados(); // Função para limpar dados offline sincronizados
+                } else {
+                    throw new Error(`Erro na requisição para rurais.php: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                console.error("Erro ao enviar dados para o servidor: ", error);
+                alert("Erro ao enviar dados para o servidor. Cadastro salvo localmente para sincronização futura.");
+                salvarOffline(formData); // Salvar offline em caso de falha no envio online
+            }
+        }
+
+
+        function limparDadosOfflineSincronizados() {
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('cadastroRuralOffline_')) {
+                    localStorage.removeItem(key); // Remover dados offline sincronizados
+                }
+            }
+            console.log('Dados offline sincronizados e limpos do LocalStorage.');
+        }
+
+
+        // Verificar e sincronizar dados offline ao carregar a página (Opcional - pode ser implementado no service worker para background sync em PWAs mais avançados)
+        window.onload = function() {
+            if (navigator.onLine) {
+                sincronizarDadosOffline(); // Tentar sincronizar dados offline pendentes ao carregar a página se estiver online
+            }
+        };
+
+
+        async function sincronizarDadosOffline() {
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('cadastroRuralOffline_')) {
+                    const offlineData = JSON.parse(localStorage.getItem(key));
+                    if (offlineData.status === 'pending') { // Sincronizar apenas dados pendentes
+                        try {
+                            await enviarParaServidor(offlineData.data); // Tentar enviar dados offline para o servidor
+                            // Se enviar com sucesso, atualizar status para 'synced' ou remover do LocalStorage
+                            offlineData.status = 'synced';
+                            localStorage.setItem(key, JSON.stringify(offlineData)); // Atualizar status (ou remover)
+                            // localStorage.removeItem(key); // Remover após sincronização bem-sucedida (opcional, dependendo se quer manter um histórico)
+                            console.log('Dados offline sincronizados:', offlineData);
+                        } catch (error) {
+                            console.error("Erro ao sincronizar dados offline:", error);
+                            // Em caso de erro, manter o status como 'pending' para tentar sincronizar novamente mais tarde
+                        }
+                    }
+                }
+            }
+            limparDadosOfflineSincronizados(); // Limpar dados offline sincronizados com sucesso após a tentativa de sincronização em lote
+        }
+
+
+    </script>
+
+    </body>
+</html>
