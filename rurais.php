@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require_once 'conectar.php';
 
 // Configurações FTP (mantenha essas em outro arquivo se possível)
-$ftp_server = "ftp."".com.br";
+$ftp_server = "localhost"r";
 //... (recomendo mover para arquivo de configuração separado)
 
 // Processar dados
